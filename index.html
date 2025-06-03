@@ -108,6 +108,25 @@
             transform: scale(1.1);
             box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
         }
+
+        /* Nueva animación de pulso para el botón principal de WhatsApp */
+        @keyframes button-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+            }
+            50% {
+                transform: scale(1.02); /* Un pulso más sutil que el hover */
+                box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+            }
+        }
+        .whatsapp-button-animated {
+            animation: button-pulse 2s infinite ease-in-out;
+        }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -187,9 +206,9 @@
 
         <!-- Botón grande de WhatsApp -->
         <!-- IMPORTANTE: Reemplaza '1234567890' con tu número de teléfono de WhatsApp, incluyendo el código de país sin el signo '+' -->
-        <!-- Se ha añadido el evento onClick para el Pixel de Meta -->
+        <!-- Se ha añadido el evento onClick para el Pixel de Meta y la clase de animación -->
         <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
-           class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg"
+           class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated"
            onclick="fbq('track', 'Contact');">
             <i class="fab fa-whatsapp text-4xl mr-4"></i>
             Chatear por WhatsApp

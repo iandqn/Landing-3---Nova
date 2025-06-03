@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superior Vegas - ¡La experiencia definitiva!</title>
+    <!-- Enlace a Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Enlace a Font Awesome para el icono de WhatsApp y otros -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Fuente Inter para un aspecto moderno */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo personalizado para el efecto de brillo/sombra en la tarjeta */
+        .card-glow {
+            box-shadow: 0 0 30px rgba(150, 50, 200, 0.7), 0 0 60px rgba(100, 0, 150, 0.5);
+        }
+        /* Animación para el botón de WhatsApp al pasar el ratón */
+        .whatsapp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
+        }
+        /* Estilos para las notificaciones */
+        .notification-container {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .notification-item {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            opacity: 0; /* Inicialmente oculto */
+            transform: translateX(-100%); /* Inicialmente fuera de pantalla */
+            animation: fadeInSlideIn 0.5s forwards;
+            min-width: 200px; /* Ancho mínimo para la notificación */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .notification-item.fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeInSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-100%); /* Deslizar hacia la izquierda al desaparecer */
+            }
+        }
+
+        /* Animación de pulso para el icono de moneda */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 35px rgba(255, 255, 0, 1);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            }
+        }
+        .coin-icon-pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        /* Estilos para el botón flotante de WhatsApp */
+        .floating-whatsapp-button {
+            position: fixed;
+            bottom: 1.5rem; /* Ajusta la distancia desde abajo */
+            right: 1.5rem; /* Ajusta la distancia desde la derecha */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+            background-color: #25D366; /* Color de WhatsApp */
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px; /* Completamente redondo */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem; /* Tamaño del icono */
+        }
+        .floating-whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-900 via-red-800 to-purple-900 min-h-screen flex flex-col items-center justify-between p-4">
+
+    <!-- Contenedor principal de la tarjeta -->
+    <div class="relative bg-gradient-to-br from-purple-950 to-red-950 p-6 md:p-10 rounded-3xl shadow-2xl max-w-md w-full text-white text-center card-glow border border-yellow-500 mb-8 mt-12">
+        <!-- Etiqueta "SUPERIOR" en la parte superior -->
+        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-purple-900 px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider">
+            SUPERIOR
+        </div>
+
+        <!-- Círculo con icono (similar al de la imagen) con efecto de pulso -->
+        <div class="mt-8 mb-6 flex justify-center">
+            <div class="relative w-24 h-24 bg-yellow-600 rounded-full flex items-center justify-center border-4 border-yellow-400 shadow-lg coin-icon-pulse" style="box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);">
+                <!-- Icono de moneda o similar, puedes cambiarlo -->
+                <i class="fas fa-coins text-yellow-200 text-5xl"></i>
+            </div>
+        </div>
+
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-2 uppercase tracking-wide">
+            VEGAS
+        </h1>
+        <p class="text-yellow-300 text-lg md:text-xl italic mb-8">
+            ¡La experiencia definitiva!
+        </p>
+
+        <!-- Sección de características -->
+        <div class="space-y-6 text-left mb-10">
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-xl">Registro ultrarrápido</h3>
+                    <p class="text-gray-300 text-base">¡SOLO 3 SEGUNDOS y ya podés jugar!</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-xl">Retiros instantáneos</h3>
+                    <p class="text-gray-300 text-base">Tu dinero, cuando VOS quieras</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-xl">Soporte VIP 24/7</h3>
+                    <p class="text-gray-300 text-base">Siempre a tu servicio, sin excepciones</p>
+                </div>
+            </div>
+            <div class="flex items-start">
+                <i class="fas fa-check-circle text-green-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h3 class="font-bold text-xl">Bonos reales sin trucos</h3>
+                    <p class="text-gray-300 text-base">Lo que ves es lo que obtenés</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón grande de WhatsApp -->
+        <!-- IMPORTANTE: Reemplaza '1234567890' con tu número de teléfono de WhatsApp, incluyendo el código de país sin el signo '+' -->
+        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+           class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg">
+            <i class="fab fa-whatsapp text-4xl mr-4"></i>
+            Chatear por WhatsApp
+        </a>
+
+        <!-- Sección de bono que expira con el contador -->
+        <div class="mt-8 bg-purple-800 bg-opacity-50 border border-purple-700 rounded-xl py-4 px-6 text-lg font-semibold text-yellow-300">
+            BONO EXPIRA EN: <span id="countdown" class="text-yellow-200 text-2xl font-bold">14:19</span>
+        </div>
+
+    </div>
+
+    <!-- Contenedor para las notificaciones de retiro -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <!-- Botón flotante de WhatsApp -->
+    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer"
+       class="floating-whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Pie de página -->
+    <footer class="bg-purple-950 text-gray-400 text-center p-4 w-full mt-auto text-sm">
+        <p>&copy; 2024 Superior Vegas. Todos los derechos reservados.</p>
+        <p class="mt-2 text-xs">Juega con responsabilidad. Prohibido para menores de 18 años.</p>
+    </footer>
+
+    <script>
+        // --- Lógica del Contador de Tiempo ---
+        const countdownElement = document.getElementById('countdown');
+        // Establecer el tiempo inicial en minutos y segundos
+        let totalSeconds = (14 * 60) + 19; // 14 minutos y 19 segundos
+
+        function updateCountdown() {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            // Formatear los minutos y segundos para que siempre tengan dos dígitos
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            countdownElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+
+            if (totalSeconds <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = "00:00";
+                // Opcional: mostrar un mensaje de "Expirado" o deshabilitar el botón
+            } else {
+                totalSeconds--;
+            }
+        }
+
+        // Actualizar el contador cada segundo
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        // Llamar una vez al inicio para mostrar el tiempo inmediatamente
+        updateCountdown();
+
+        // --- Lógica de Notificaciones de Retiro ---
+        const notificationContainer = document.getElementById('notificationContainer');
+        const names = ["Juan P.", "María G.", "Pedro L.", "Ana R.", "Carlos M.", "Sofía V.", "Diego H.", "Laura C."];
+
+        function getRandomAmount() {
+            // Genera un monto aleatorio entre 50,000 y 1,000,000, en múltiplos de 1,000
+            const minAmount = 50000;
+            const maxAmount = 1000000;
+            const step = 1000;
+            const range = (maxAmount - minAmount) / step; // 950
+            return (Math.floor(Math.random() * (range + 1)) * step) + minAmount;
+        }
+
+        function createNotification() {
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomAmount = getRandomAmount();
+
+            const notificationItem = document.createElement('div');
+            notificationItem.classList.add('notification-item');
+            notificationItem.innerHTML = `
+                <i class="fas fa-money-bill-wave text-green-400 text-xl mr-3"></i>
+                <div>
+                    <p class="font-semibold">${randomName}</p>
+                    <p class="text-sm">ha retirado <span class="text-yellow-300 font-bold">$${randomAmount.toLocaleString('es-AR')}</span></p>
+                </div>
+            `;
+
+            notificationContainer.prepend(notificationItem); // Añadir al principio para que las nuevas aparezcan arriba
+
+            // Eliminar la notificación después de 5 segundos
+            setTimeout(() => {
+                notificationItem.classList.add('fade-out'); // Añadir clase para la animación de salida
+                notificationItem.addEventListener('animationend', () => {
+                    notificationItem.remove(); // Eliminar del DOM una vez que la animación termine
+                }, { once: true }); // Asegurarse de que el evento solo se dispare una vez
+            }, 5000); // 5 segundos
+        }
+
+        // Generar una nueva notificación cada 5 a 15 segundos
+        setInterval(createNotification, Math.random() * (15000 - 5000) + 5000); // Random entre 5 y 15 segundos
+        // Generar una notificación inicial al cargar la página
+        createNotification();
+    </script>
+
+</body>
+</html>

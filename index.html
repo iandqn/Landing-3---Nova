@@ -146,8 +146,14 @@
 
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  const landingId = "nova"; // Cambiá esto por el ID que usás en Firestore
-  const fechaHoy = new Date().toISOString().split("T")[0];
+    const landingId = "nova";
+    const fechaHoy = new Intl.DateTimeFormat('sv-SE', {
+      timeZone: 'America/Argentina/Buenos_Aires',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date()).replaceAll('-', '');
+    
 
   async function inicializarLanding() {
     try {

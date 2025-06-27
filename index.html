@@ -130,6 +130,93 @@
         }
     </style>
 
+    <!-- Firebase y lógica del gestor -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDsCYwaKb-TdtYOytNV98A7ZLtlPCkYxRM",
+    authDomain: "prueba-3efec.firebaseapp.com",
+    projectId: "prueba-3efec",
+    storageBucket: "prueba-3efec.appspot.com",
+    messagingSenderId: "599043731526",
+    appId: "1:599043731526:web:b90607a87c5021fa555a47"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const landingId = "nova"; // Cambiá esto por el ID que usás en Firestore
+  const fechaHoy = new Date().toISOString().split("T")[0];
+
+  async function inicializarLanding() {
+    try {
+      const docRef = db.collection("landings").doc(landingId);
+      const docSnap = await docRef.get();
+
+      if (!docSnap.exists) {
+        document.body.innerHTML = "<p style='padding:2rem;text-align:center;'>Landing no encontrada</p>";
+        return;
+      }
+
+      const data = docSnap.data();
+
+      if (data.activo === false) {
+        document.body.innerHTML = "<p style='padding:2rem;text-align:center;'>Esta oferta ya no está disponible.</p>";
+        return;
+      }
+
+      // WhatsApp
+      const waLinks = document.querySelectorAll("a.whatsapp-button");
+      if (data.numeroWhatsapp) {
+        const mensaje = encodeURIComponent("¡Hola! Quiero más información y MI BONO para empezar a Jugar!");
+        waLinks.forEach(link => {
+          link.href = `https://wa.me/${data.numeroWhatsapp}?text=${mensaje}`;
+          link.style.display = "inline-block";
+        });
+      } else {
+        waLinks.forEach(link => link.style.display = "none");
+      }
+
+      // Pixel Meta dinámico
+      if (data.pixelMetaId) {
+        fbq('init', data.pixelMetaId);
+        fbq('track', 'PageView');
+      }
+
+      // Pageviews
+      await db.collection("stats")
+        .doc("pageviews")
+        .collection(fechaHoy)
+        .doc(landingId)
+        .set({ count: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+
+    } catch (e) {
+      console.error("Error al inicializar landing:", e);
+      document.body.innerHTML = "<p style='padding:2rem;text-align:center;'>Error al cargar la oferta.</p>";
+    }
+  }
+
+  async function registrarClick() {
+    try {
+      await db.collection("stats")
+        .doc("clicks")
+        .collection(fechaHoy)
+        .doc(landingId)
+        .set({ count: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+
+      if (typeof fbq === 'function') {
+        fbq('track', 'Contact');
+      }
+    } catch (e) {
+      console.error("Error al registrar click:", e);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", inicializarLanding);
+</script>
+
+
     <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
@@ -226,12 +313,13 @@
         <!-- Botón grande de WhatsApp -->
         <!-- IMPORTANTE: Reemplaza '1234567890' con tu número de teléfono de WhatsApp, incluyendo el código de país sin el signo '+' -->
         <!-- Se ha añadido el evento onClick para el Pixel de Meta y la clase de animación -->
-        <a href="https://wa.me/5491170842989?text=%C2%A1Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20MI%20BONO%20para%20empezar%20a%20Jugar%21" target="_blank" rel="noopener noreferrer"
-           class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated"
-           onclick="fbq('track', 'Contact');">
-            <i class="fab fa-whatsapp text-4xl mr-4"></i>
-            Chatear por WhatsApp
+        <a href="#" target="_blank" rel="noopener noreferrer"
+        class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated"
+        onclick="registrarClick()">
+        <i class="fab fa-whatsapp text-4xl mr-4"></i>
+        Chatear por WhatsApp
         </a>
+
 
         <!-- Sección de bono que expira con el contador -->
         <div class="mt-8 bg-purple-800 bg-opacity-50 border border-purple-700 rounded-xl py-4 px-6 text-lg font-semibold text-yellow-300">
@@ -243,11 +331,12 @@
     <!-- Contenedor para las notificaciones de retiro -->
     <div id="notificationContainer" class="notification-container"></div>
 
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/5491170842989?text=%C2%A1Hola%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20MI%20BONO%20para%20empezar%20a%20Jugar%21" target="_blank" rel="noopener noreferrer"
-       class="floating-whatsapp-button">
+        <a href="#" target="_blank" rel="noopener noreferrer"
+        class="floating-whatsapp-button whatsapp-button"
+        onclick="registrarClick()">
         <i class="fab fa-whatsapp"></i>
-    </a>
+        </a>
+
 
     <!-- Pie de página -->
     <footer class="bg-purple-950 text-gray-400 text-center p-4 w-full mt-auto text-sm">

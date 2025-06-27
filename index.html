@@ -152,7 +152,8 @@
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
-    }).format(new Date()).replaceAll('-', '');
+    }).format(new Date()); // Resultado: "2025-06-26"
+
     
 
   async function inicializarLanding() {

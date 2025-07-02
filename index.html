@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Nova - ¡La mejor experiencia!</title>
-    <!-- Enlace a Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Enlace a Font Awesome para el icono de WhatsApp y otros -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Fuente Inter para un aspecto moderno */
@@ -130,8 +128,7 @@
         }
     </style>
 
-    <!-- Firebase y lógica del gestor -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
 <script>
@@ -173,18 +170,6 @@
         return;
       }
 
-      // WhatsApp
-      const waLinks = document.querySelectorAll("a.whatsapp-button");
-      if (data.numeroWhatsapp) {
-        const mensaje = encodeURIComponent("¡Hola! Quiero más información y MI BONO para empezar a Jugar!");
-        waLinks.forEach(link => {
-          link.href = `https://wa.me/${data.numeroWhatsapp}?text=${mensaje}`;
-          link.style.display = "inline-block";
-        });
-      } else {
-        waLinks.forEach(link => link.style.display = "none");
-      }
-
       // Pixel Meta dinámico
       if (data.pixelMetaId) {
         fbq('init', data.pixelMetaId);
@@ -224,7 +209,6 @@
 </script>
 
 
-    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -240,8 +224,6 @@
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=573096628816875&ev=PageView&noscript=1" // Reemplaza 'YOUR_PIXEL_ID' con tu ID de Pixel de Meta
     /></noscript>
-    <!-- End Meta Pixel Code -->
-    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -257,23 +239,16 @@
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=504505565859049&ev=PageView&noscript=1" // Reemplaza 'YOUR_PIXEL_ID' con tu ID de Pixel de Meta
     /></noscript>
-    <!-- End Meta Pixel Code -->
-
-
-</head>
+    </head>
 <body class="bg-gradient-to-br from-purple-900 via-red-800 to-purple-900 min-h-screen flex flex-col items-center justify-center p-4">
 
-    <!-- Contenedor principal de la tarjeta -->
     <div class="relative bg-gradient-to-br from-purple-950 to-red-950 p-6 md:p-10 rounded-3xl shadow-2xl max-w-md w-full text-white text-center card-glow border border-yellow-500 my-4">
-        <!-- Etiqueta "SUPERIOR" en la parte superior -->
         <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-purple-900 px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider">
             VERIFICADOS
         </div>
 
-        <!-- Círculo con icono (similar al de la imagen) con efecto de pulso -->
         <div class="mt-8 mb-6 flex justify-center">
             <div class="relative w-24 h-24 bg-yellow-600 rounded-full flex items-center justify-center border-4 border-yellow-400 shadow-lg coin-icon-pulse" style="box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);">
-                <!-- Icono de moneda o similar, puedes cambiarlo -->
                 <i class="fas fa-coins text-yellow-200 text-5xl"></i>
             </div>
         </div>
@@ -285,7 +260,6 @@
             ¡La mejor experiencia!
         </p>
 
-        <!-- Sección de características -->
         <div class="space-y-6 text-left mb-10">
             <div class="flex items-start">
                 <i class="fas fa-check-circle text-green-400 text-xl mr-3 mt-1"></i>
@@ -317,10 +291,7 @@
             </div>
         </div>
 
-        <!-- Botón grande de WhatsApp -->
-        <!-- IMPORTANTE: Reemplaza '1234567890' con tu número de teléfono de WhatsApp, incluyendo el código de país sin el signo '+' -->
-        <!-- Se ha añadido el evento onClick para el Pixel de Meta y la clase de animación -->
-        <a href="#" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/5491170842989?text=%C2%A1Hola!%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20MI%20BONO%20para%20empezar%20a%20Jugar!%20Mi%20nombre%20es%3A" target="_blank" rel="noopener noreferrer"
         class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-2xl md:text-3xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated"
         onclick="registrarClick()">
         <i class="fab fa-whatsapp text-4xl mr-4"></i>
@@ -328,24 +299,21 @@
         </a>
 
 
-        <!-- Sección de bono que expira con el contador -->
         <div class="mt-8 bg-purple-800 bg-opacity-50 border border-purple-700 rounded-xl py-4 px-6 text-lg font-semibold text-yellow-300">
             BONO EXPIRA EN: <span id="countdown" class="text-yellow-200 text-2xl font-bold">09:19</span>
         </div>
 
     </div>
 
-    <!-- Contenedor para las notificaciones de retiro -->
     <div id="notificationContainer" class="notification-container"></div>
 
-        <a href="#" target="_blank" rel="noopener noreferrer"
+        <a href="https://wa.me/5491170842989?text=%C2%A1Hola!%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20MI%20BONO%20para%20empezar%20a%20Jugar!%20Mi%20nombre%20es%3A" target="_blank" rel="noopener noreferrer"
         class="floating-whatsapp-button whatsapp-button"
         onclick="registrarClick()">
         <i class="fab fa-whatsapp"></i>
         </a>
 
 
-    <!-- Pie de página -->
     <footer class="bg-purple-950 text-gray-400 text-center p-4 w-full mt-auto text-sm">
         <p>&copy; 2025 Panel Nova. Todos los derechos reservados.</p>
         <p class="mt-2 text-xs">Juega con responsabilidad. Prohibido para menores de 18 años.</p>

@@ -251,11 +251,10 @@
             </div>
         </div>
 
-        <a href="https://wa.me/5491170842989?text=%C2%A1Hola%21%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20mi%20bono%20tras%20completar%20mi%20primera%20carga.%20Mi%20nombre%20es%3A" target="_blank" rel="noopener noreferrer"
-        class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-xl md:text-2xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated"
-        onclick="registrarClick()">
-        <i class="fab fa-whatsapp text-3xl mr-3"></i>
-        ¡Quiero Cargar y Recibir mi Bono!
+        <!-- BOTÓN DE WHATSAPP PRINCIPAL MODIFICADO -->
+        <a class="whatsapp-button inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-xl md:text-2xl transition-all duration-300 ease-in-out transform shadow-lg whatsapp-button-animated" style="cursor:pointer;">
+            <i class="fab fa-whatsapp text-3xl mr-3"></i>
+            ¡Quiero Cargar y Recibir mi Bono!
         </a>
 
         <div class="mt-8 bg-purple-800 bg-opacity-50 border border-purple-700 rounded-xl py-4 px-6 text-lg font-semibold text-yellow-300">
@@ -265,10 +264,9 @@
 
     <div id="notificationContainer" class="notification-container"></div>
 
-    <a href="https://wa.me/5491170842989?text=%C2%A1Hola%21%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20y%20mi%20bono%20tras%20completar%20mi%20primera%20carga.%20Mi%20nombre%20es%3A" target="_blank" rel="noopener noreferrer"
-    class="floating-whatsapp-button whatsapp-button"
-    onclick="registrarClick()">
-    <i class="fab fa-whatsapp"></i>
+    <!-- BOTÓN DE WHATSAPP FLOTANTE MODIFICADO -->
+    <a class="floating-whatsapp-button whatsapp-button" style="cursor:pointer;">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <footer class="bg-purple-950 text-gray-400 text-center p-4 w-full mt-auto text-sm">
@@ -333,6 +331,52 @@
 
         setInterval(createNotification, Math.random() * (15000 - 5000) + 5000);
         setTimeout(createNotification, 1000); 
+    </script>
+    
+    <!-- === NUEVO SCRIPT PARA WHATSAPP ALEATORIO === -->
+    <script>
+        // --- Lógica para el botón de WhatsApp aleatorio ---
+        
+        // 1. Selecciona todos los elementos que sean botones de WhatsApp
+        const whatsappButtons = document.querySelectorAll('.whatsapp-button');
+
+        // 2. LISTA DE NÚMEROS: Aquí puedes agregar, quitar o cambiar los números.
+        // Formato: 'códigoDePaís_códigoDeÁrea_número' (todo junto, sin símbolos)
+        const whatsappNumbers = [
+            '5491170842989', // Número original
+            '5492235211366', // Ejemplo 1: Reemplaza este con un número real
+  
+            // Puedes agregar más líneas aquí, por ejemplo: '54911...'.
+        ];
+
+        // 3. Esta función se ejecuta cuando alguien hace clic en un botón de WhatsApp
+        function handleWhatsappClick(event) {
+            event.preventDefault(); // Previene el comportamiento por defecto del enlace
+
+            // Elige un número de la lista al azar
+            const randomIndex = Math.floor(Math.random() * whatsappNumbers.length);
+            const selectedNumber = whatsappNumbers[randomIndex];
+
+            // Define el mensaje predeterminado
+            const message = "¡Hola! Quiero más información y mi bono tras completar mi primera carga. Mi nombre es:";
+            const encodedMessage = encodeURIComponent(message);
+
+            // Crea la URL final de WhatsApp
+            const whatsappUrl = `https://wa.me/${selectedNumber}?text=${encodedMessage}`;
+
+            // Llama a la función original para registrar el clic en Firebase
+            if (typeof registrarClick === 'function') {
+                registrarClick();
+            }
+
+            // Abre la URL de WhatsApp en una nueva pestaña
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // 4. Asigna la función 'handleWhatsappClick' a cada botón de WhatsApp
+        whatsappButtons.forEach(button => {
+            button.addEventListener('click', handleWhatsappClick);
+        });
     </script>
 </body>
 </html>
